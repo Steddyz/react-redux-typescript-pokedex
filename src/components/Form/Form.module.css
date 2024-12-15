@@ -1,0 +1,35 @@
+.form {
+  padding: 40px 0 40px 0;
+}
+
+.input {
+  outline: none;
+  border-radius: 5px;
+  padding-left: 20px;
+  border: 1px solid #868686;
+  height: 40px;
+  width: 300px;
+}
+
+.button {
+  border-radius: 5px;
+
+  height: 40px;
+  background-color: inherit;
+  border: 1px solid #868686;
+  margin-left: 20px;
+  width: 100px;
+  cursor: pointer;
+
+  transition: all 0.2s ease-in;
+}
+.button:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+@media (max-width: 420px) {
+  .input {
+    width: 200px;
+  }
+}

@@ -1,0 +1,36 @@
+#root {
+  display: flex;
+
+  max-width: 1400px;
+  margin: 0 auto;
+  text-align: center;
+  height: 100vh;
+  flex-direction: column;
+
+  font-family: "VT323", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+
+a {
+  color: inherit;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+}
+
+.footer {
+  margin-top: auto;
+}

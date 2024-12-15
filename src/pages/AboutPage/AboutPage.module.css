@@ -1,0 +1,32 @@
+.about {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+hr {
+  margin: 20px;
+
+  width: 400px;
+  height: 3px;
+  background-color: #000;
+}
+
+.title {
+  font-size: 64px;
+}
+
+.description {
+  font-size: 22px;
+  width: 550px;
+}
+
+@media (max-width: 560px) {
+  .description {
+    font-size: 16px;
+    width: 350px;
+  }
+}
