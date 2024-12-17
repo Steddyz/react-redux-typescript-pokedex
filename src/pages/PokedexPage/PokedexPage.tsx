@@ -5,11 +5,9 @@ import Form from "../../components/Form/Form";
 import PokemonCard from "../../components/PokemonCard/PokemonCard";
 import Pagination from "../../components/Pagination/Pagination";
 import { useGetPokemonsQuery } from "../../services/pokemonService";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { setPage } from "../../features/pokedexSlice";
+import { useAppSelector } from "../../hooks/hooks";
 
 const PokedexPage: FC = () => {
-  const dispatch = useAppDispatch();
   const { page, search } = useAppSelector((state) => state.pokedex);
 
   const { data, isLoading, isError } = useGetPokemonsQuery({ page, search });
@@ -17,12 +15,7 @@ const PokedexPage: FC = () => {
   return (
     <div className={cl.pokedex}>
       <Form />
-      <Pagination
-        onPageChange={(newPage) => {
-          dispatch(setPage(newPage));
-        }}
-        currentPage={page}
-      />
+      <Pagination />
       {isLoading && <div>Загрузка...</div>}
       {isError && <div>Произошла ошибка. Попробуйте позже</div>}
       {data && <PokemonCard pokemons={data} />}

@@ -1,28 +1,38 @@
-import React, { FC } from "react";
+import { FC } from "react";
 
 import cl from "./Pagination.module.css";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useGetPokemonsQuery } from "../../services/pokemonService";
+import { setPage } from "../../features/pokedexSlice";
 
-interface PaginationProps {
-  onPageChange: (page: number) => void;
-  currentPage: number;
-}
+const Pagination: FC = () => {
+  const dispatch = useAppDispatch();
 
-const Pagination: FC<PaginationProps> = ({ onPageChange, currentPage }) => {
-  const nextPage = () => {
-    onPageChange(currentPage + 10);
+  const currentPage = useAppSelector((state) => state.pokedex.page);
+
+  const { data } = useGetPokemonsQuery({ page: currentPage, search: "" });
+
+  const hasMorePages = data && data.length > 0;
+
+  const handleNextPage = () => {
+    if (hasMorePages) {
+      dispatch(setPage(currentPage + 1));
+    }
   };
 
-  const previousPage = () => {
-    onPageChange(currentPage > 0 ? currentPage - 10 : 0);
+  const handlePreviousPage = () => {
+    if (currentPage > 0) {
+      dispatch(setPage(currentPage - 1));
+    }
   };
 
   return (
     <div className={cl.pagination}>
-      <button onClick={previousPage} className={cl.arrow}>
+      <button onClick={handlePreviousPage} className={cl.arrow}>
         &#x2BC7;
       </button>
       <div className={cl.pagination_inner}>Pagination</div>
-      <button onClick={nextPage} className={cl.arrow}>
+      <button onClick={handleNextPage} className={cl.arrow}>
         &#x2BC8;
       </button>
     </div>
