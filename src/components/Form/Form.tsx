@@ -1,17 +1,18 @@
 import React, { FC, useState, FormEvent } from "react";
 
 import cl from "./Form.module.css";
+import { useAppDispatch } from "../../hooks/hooks";
+import { setSearch } from "../../features/pokedexSlice";
 
-interface FormProps {
-  onSearch: (searchTerm: string) => void;
-}
-
-const Form: FC<FormProps> = ({ onSearch }) => {
+const Form: FC = () => {
   const [form, setForm] = useState<string>("");
+
+  const dispatch = useAppDispatch();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSearch(form.toLowerCase());
+    console.log("Searching for:", form.toLowerCase());
+    dispatch(setSearch(form.toLowerCase()));
     setForm("");
   };
 

@@ -6,7 +6,7 @@ export type Pokemon = {
   sprites: { front_default: string };
 };
 
-interface PokemonResponse {
+interface PokemonListResponse {
   results: { url: string; name: string }[];
   count: number;
 }
@@ -23,13 +23,19 @@ export const pokemonApi = createApi({
         const limit = 20;
         const offset = page * limit;
 
-        return search
-          ? `pokemon?limit=${limit}&offset=${offset}&search=${search}`
-          : `pokemon?limit=${limit}&offset=${offset}`;
+        if (search) {
+          return `pokemon/${search}`;
+        }
+
+        return `pokemon?limit=${limit}&offset=${offset}`;
       },
-      transformResponse: async (response: PokemonResponse) => {
+
+      transformResponse: async (response: PokemonListResponse | Pokemon) => {
+        if ((response as Pokemon).sprites) {
+          return [response as Pokemon];
+        }
         const pokemonData = await Promise.all(
-          response.results.map(async (pok) => {
+          (response as PokemonListResponse).results.map(async (pok) => {
             const pokResponse = await axios.get(pok.url);
             return await pokResponse.data;
           })
